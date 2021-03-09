@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html >
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+<head>
+  <meta charset="UTF-8">
+  <title>ML API</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  
+</head>
+
+<body>
+ <div class="login">
+    <h1>Predict E. coli Analysis</h1>
+
+     <!-- Main Input For Receiving Query to our ML -->
+    <form action="{{ url_for('predict')}}" method="post">
+        <input type="text" name="watertemp" placeholder="watertemp" required="required" />
+        <input type="text" name="turbidity" placeholder="turbidity" required="required" />
+        <input type="text" name="coliform" placeholder="coliforms_LAE" required="required" />
+        <input type="text" name="color" placeholder="color_LAE" required="required" />
+        <input type="text" name="enterococci" placeholder="enterococciMF_LAE" required="required" />
+        <input type="text" name="ecoli_fast_1" placeholder="ecoli_colifast_LAE_1st" required="required" />
+        <input type="text" name="ecoli_fast_2" placeholder="ecoli_colifast_LAE_2nd" required="required" />
+        
+        <form action="/regressor", method="post">
+
+            <button class="btn btn-dark" name="randomforest" type="submit" style="margin-top:10px;" >randomforest&nbsp;</button> 
+             <br>
+            <button class="btn btn-dark" name="elasticnet" type="submit" style="margin-top:10px;" >elasticnet</button> 
+
+            <button class="btn btn-dark" name="xgboost" type="submit" style="margin-top:10px;" >xgboost</button> 
+
+
+        </form>
+
+
+        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+        
+        <label for="algo">choose an algorithm:</label>
+        <select name="algorithms" id="algo">
+          <option value="randomforest">randomforest</option>
+          <option value="elasticnet">elasticnet</option>
+          <option value="xgboost">xgboost</option>
+        </select>
+
+        
+    </form>
+
+   <br>
+   <br>
+   {{ prediction_text }}
+
+ </div>
+
+
+</body>
+</html>
